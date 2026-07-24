@@ -1,0 +1,97 @@
+name: Research proposal
+description: Propose a measurable protocol experiment, replication, or research question.
+title: "[Research]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reliquary separates deployed behavior, observed evidence, and proposals. State the current production boundary plainly and design the experiment before inspecting outcomes.
+
+  - type: input
+    id: title
+    attributes:
+      label: Research question
+      placeholder: Can mechanism X improve outcome Y under constraint Z?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: proposal_type
+    attributes:
+      label: Proposal type
+      options:
+        - Measurement or audit
+        - Controlled protocol experiment
+        - Reproduction or replication
+        - Simulation
+        - Implementation-backed research
+    validations:
+      required: true
+
+  - type: textarea
+    id: production_boundary
+    attributes:
+      label: Current production boundary
+      description: What is deployed now, what is merely observed, and what remains proposed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Falsifiable hypothesis
+      description: State the expected effect and what result would count against it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Existing evidence and sources
+      description: Link primary sources, deployment receipts, canonical code, and timestamped public observations.
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Experimental design
+      description: Define units, controls, randomization, fixed sample plan, stopping rule, and analysis before outcomes are inspected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: endpoints
+    attributes:
+      label: Primary endpoint and uncertainty
+      description: Name the primary metric, estimator, confidence interval, and treatment of clustered or repeated observations.
+    validations:
+      required: true
+
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Reproducibility artifacts
+      description: List fixtures, code, sanitized data, environment identity, and expected publication outputs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Safety, privacy, and operational risk
+      description: Explain isolation, rollback, data minimization, and why live network behavior cannot be harmed.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Proposal checks
+      options:
+        - label: I have not described proposed or observation-only behavior as deployed protocol behavior.
+          required: true
+        - label: The design does not require secrets, wallet material, private prompts, raw completions, or personal data.
+          required: true
+        - label: The sample plan and primary endpoint are fixed before outcome inspection.
+          required: true

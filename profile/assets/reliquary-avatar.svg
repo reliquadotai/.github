@@ -1,0 +1,40 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1024"
+  height="1024"
+  viewBox="0 0 1024 1024"
+  role="img"
+  aria-labelledby="reliquary-avatar-title reliquary-avatar-description"
+  focusable="false"
+>
+  <title id="reliquary-avatar-title">Reliquary Vault Seal</title>
+  <desc id="reliquary-avatar-description">
+    The amber Reliquary Vault Seal on an obsidian square, with generous space for a
+    circular avatar crop.
+  </desc>
+
+  <rect width="1024" height="1024" fill="#0a0a0b" />
+  <circle cx="512" cy="512" r="412" fill="none" stroke="#202024" stroke-width="2" />
+  <circle cx="512" cy="512" r="364" fill="#111113" />
+
+  <g transform="translate(92 92) scale(7)">
+    <line
+      x1="8"
+      y1="60"
+      x2="112"
+      y2="60"
+      stroke="#e87a3e"
+      stroke-width="1.2"
+      opacity="0.55"
+    />
+    <path
+      d="M 60 12 L 108 60 L 60 108 L 12 60 Z"
+      fill="none"
+      stroke="#e87a3e"
+      stroke-width="2.4"
+      stroke-linejoin="miter"
+    />
+    <path d="M 60 36 L 84 60 L 60 84 L 36 60 Z" fill="#e87a3e" />
+    <circle cx="60" cy="60" r="3.2" fill="#0a0a0b" />
+  </g>
+</svg>
