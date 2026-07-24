@@ -1,0 +1,85 @@
+name: Bug report
+description: Report a reproducible defect in a Reliquary product or public surface.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Reliquary. Do not include secrets, wallet material, private prompts, raw completions, personal data, or private infrastructure details. Report vulnerabilities through the security policy instead.
+
+  - type: input
+    id: repository
+    attributes:
+      label: Affected repository or surface
+      description: Name the repository, package, dashboard route, or public API.
+      placeholder: reliquadotai/reliquary
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or deployment identity
+      description: Provide a release, commit SHA, image identifier, or public deployment URL.
+      placeholder: commit SHA, release tag, or URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: context
+    attributes:
+      label: Context
+      options:
+        - Production or Finney Subnet 81
+        - Public website, dashboard, or API
+        - Local development
+        - Isolated test environment
+        - Historical or reference implementation
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Give a concise description of the defect and its impact.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: List deterministic steps, inputs, and prerequisites.
+      placeholder: |
+        1. …
+        2. …
+        3. …
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence
+      description: Add searchable logs, screenshots, window or block references, and checks already attempted.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched for an existing issue and reproduced this against a supported version.
+          required: true
+        - label: I removed secrets, wallet material, private prompts, raw completions, personal data, and private host details.
+          required: true
+        - label: This is not a security vulnerability requiring private disclosure.
+          required: true

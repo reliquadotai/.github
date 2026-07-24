@@ -1,54 +1,99 @@
-# Reliquary
+<p align="center">
+  <img
+    src="./assets/reliquary-hero.svg"
+    alt="Reliquary — find the signal, prove it, train"
+    width="100%"
+  />
+</p>
 
-> Run the model, prove you did, publish the receipt. Anyone verifies in milliseconds.
+<p align="center">
+  <strong>Decentralized GRPO training on Bittensor's Finney network, Subnet 81.</strong>
+</p>
 
-**Reliquary** is a proof-carrying inference + RL training subnet on Bittensor. Every miner completion ships with a cryptographic sketch of the forward pass; a four-validator mesh re-runs the proof at sampled positions in milliseconds; verified rollouts feed an autonomous GRPO trainer that publishes signed policy deltas back to miners.
+<p align="center">
+  <a href="https://www.reliqua.ai/dashboard">Live network</a>
+  ·
+  <a href="https://github.com/reliquadotai/reliquary/blob/main/docs/mining.md">Run a miner</a>
+  ·
+  <a href="https://github.com/reliquadotai/reliquary/blob/main/docs/concepts.md">Protocol</a>
+  ·
+  <a href="https://www.reliqua.ai/research">Research</a>
+</p>
 
-`testnet · netuid 462 · live since 2026-04-21`
+Reliquary turns independent GPU operators into a verifiable training market.
+Miners search for prompts at a model's learning frontier, the validator
+recomputes the evidence, and healthy selected groups can contribute to the next
+checkpoint.
 
-## Live snapshot
+## Find the signal. Prove it. Train
 
-| | |
-|---|---|
-| validators (mesh) | 4 (3× RTX PRO 6000 Blackwell + 1× H100) |
-| miners (real model) | Qwen2.5-3B-Instruct, M=8 sampled rollouts |
-| in-zone rate (rolling) | 0.60 |
-| mean reward | 0.875 |
-| accepted / total | 35 / 40 |
-| cross-GPU determinism digest | `4de1918431de9f26…` |
+<p align="center">
+  <img
+    src="./assets/protocol-loop.svg"
+    alt="Reliquary protocol loop: miners find frontier prompts, the validator verifies rollout evidence, and healthy selected groups train the next checkpoint"
+    width="100%"
+  />
+</p>
 
-Public audit (no auth, no operator cooperation needed):
-- [HTML index](https://pub-954f95c7d2f3478886c8a8ff7a4946e0.r2.dev/audit/index.html)
-- [JSON index](https://pub-954f95c7d2f3478886c8a8ff7a4946e0.r2.dev/audit/index.json)
+1. **Find** — miners compete to locate useful training signal before compute is
+   committed.
+2. **Prove** — selected candidates pass deterministic verification and
+   validator-authoritative reward checks.
+3. **Train** — clean, complete windows become eligible for GRPO; archives and
+   checkpoint claims remain inspectable.
 
-## What's in the org
+## Inspect production
 
-| Repo | Role |
-|---|---|
-| [`reliquary-ledger`](https://github.com/reliquadotai/reliquary-ledger) | Inference runtime — 9-stage verifier, validator mesh, policy consumer |
-| [`reliquary-forge`](https://github.com/reliquadotai/reliquary-forge) | Training runtime — DAPO/GRPO trainer, distillation lane |
-| [`reliquary-protocol`](https://github.com/reliquadotai/reliquary-protocol) | Shared crypto, canonical bytes, bridge envelopes |
-| [`reliquary-web`](https://github.com/reliquadotai/reliquary-web) | Marketing site + proof explorer ([reliqua.ai](https://reliqua.ai)) |
-| [`relica-dashboard`](https://github.com/reliquadotai/relica-dashboard) | Miner-telemetry dashboard |
+| Surface | What it shows |
+| --- | --- |
+| [Live dashboard](https://www.reliqua.ai/dashboard) | Current windows, selection, rewards, and training health |
+| [Proof explorer](https://www.reliqua.ai/explorer) | Public window records and validator provenance |
+| [Network status](https://www.reliqua.ai/status) | Availability and data freshness |
+| [Canonical source](https://github.com/reliquadotai/reliquary) | The deployed protocol and its current contract |
 
-## What's empirically true
+Live values belong on live surfaces. This profile intentionally does not freeze
+changing counts, checkpoints, or projections into marketing copy.
 
-- **Cross-GPU bit-exactness.** 4 hosts, 90 samples, identical sketch digests across A100 / Blackwell / H100. One commitment, four independent verifications, zero drift.
-- **Mesh consensus under attack.** 256 verdicts, 1 simulated malicious validator across 4 nodes. Malicious validator gated cleanly at 1.0 disagreement; honest 3 produced bit-identical outputs.
-- **Closed-loop RL.** Forge GRPO publishes signed `CheckpointAttestation + PolicyCommitment`; miners hot-swap deltas at `effective_at_ledger_window` after signature + smoke-hash + reparam-guard checks.
-- **Reparam guard.** RMSNorm × Linear scale exploits caught before any delta touches the cached model.
+## Build and operate
 
-## Read the spec, run the audit yourself
+- [Mine on Subnet 81](https://github.com/reliquadotai/reliquary/blob/main/docs/mining.md)
+- [Run a validator](https://github.com/reliquadotai/reliquary/blob/main/docs/validating.md)
+- [Understand the mechanism](https://github.com/reliquadotai/reliquary/blob/main/docs/concepts.md)
+- [Operate a private-by-default miner fleet](https://github.com/reliquadotai/reliquary-fleet)
 
-- [Protocol paper](https://github.com/reliquadotai/reliquary-ledger/blob/main/docs/paper/reliquary_protocol_paper.md)
-- [Empirical audit reports](https://github.com/reliquadotai/reliquary-ledger/tree/main/docs/audit)
-- [Validator quickstart](https://github.com/reliquadotai/reliquary-ledger/blob/main/docs/validator-quickstart.md)
-- [Miner quickstart](https://github.com/reliquadotai/reliquary-ledger/blob/main/docs/miner-quickstart.md)
+## Repositories
 
-## License
+### Production
 
-MIT across the public repos. 
+| Repository | Role |
+| --- | --- |
+| [`reliquary`](https://github.com/reliquadotai/reliquary) | Canonical Subnet 81 protocol: mining, verification, selection, training, archives, and checkpoint publication |
+| [`reliquary-fleet`](https://github.com/reliquadotai/reliquary-fleet) | Released, private-by-default operations dashboard for miner fleets |
+
+### Reference and history
+
+These repositories preserve earlier experiments and reusable primitives. They
+are not the production Subnet 81 implementation.
+
+| Repository | Scope |
+| --- | --- |
+| [`reliquary-ledger`](https://github.com/reliquadotai/reliquary-ledger) | Historical proof-carrying inference and validator-mesh testnet |
+| [`reliquary-forge`](https://github.com/reliquadotai/reliquary-forge) | Historical trainer-quorum and policy-delta exploration |
+| [`reliquary-protocol`](https://github.com/reliquadotai/reliquary-protocol) | Standalone reference for shared protocol primitives |
+
+## Research with receipts
+
+[Reliquary Research](https://www.reliqua.ai/research) separates measured
+evidence, deployed behavior, and proposed mechanisms. An experiment does not
+affect production ranking, rewards, or training until the canonical source and
+deployment state say it does.
+
+## Work with us
+
+- [Contributing](https://github.com/reliquadotai/.github/blob/main/CONTRIBUTING.md)
+- [Security policy](https://github.com/reliquadotai/.github/blob/main/SECURITY.md)
+- [Support and issue routing](https://github.com/reliquadotai/.github/blob/main/SUPPORT.md)
 
 ---
 
-`mit · reliquadotai · 2026 · ledger · forge · one protocol`
+`finney · subnet 81 · inference → evidence → weights`

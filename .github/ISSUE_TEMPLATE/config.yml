@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/reliquadotai/reliquary/security/advisories/new
+    about: Report privately; never disclose vulnerability details in a public issue.
+  - name: Support and routing
+    url: https://github.com/reliquadotai/.github/blob/main/SUPPORT.md
+    about: Find the correct repository and the information needed for an actionable report.
+  - name: Live network status
+    url: https://www.reliqua.ai/status
+    about: Check availability and data freshness before reporting a live-state issue.
